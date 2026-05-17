@@ -1,0 +1,145 @@
+﻿@page
+@model RegisterModel
+
+@{
+    Layout = "_AuthLayout";
+}
+
+<link rel="stylesheet" href="~/css/auth.css" />
+
+<div class="auth-container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="auth-left">
+
+        <div class="left-content">
+
+            <span class="tagline">Join SkillSphere</span>
+
+            <h1>
+                Build Skills.<br />
+                Teach Others.<br />
+                <span>Grow Together.</span>
+            </h1>
+
+            <p>
+                Create your account and start exchanging skills
+                with people around the world.
+            </p>
+
+            <div class="left-features">
+
+                <div class="left-feature">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Connect with talented people</span>
+                </div>
+
+                <div class="left-feature">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Learn and teach new skills</span>
+                </div>
+
+                <div class="left-feature">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Chat and collaborate بسهولة</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                <h3>SkillSphere</h3>
+            </div>
+
+            <h2>Create Account 🚀</h2>
+
+            <p class="subtitle">
+                Join the community and start your learning journey today.
+            </p>
+
+            <form method="post">
+
+                <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input asp-for="Input.FullName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input asp-for="Input.Email" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea asp-for="Input.Bio" class="form-control textarea-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>What are you learning?</label>
+                    <input asp-for="Input.LearningSkill" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>What can you teach?</label>
+                    <input asp-for="Input.TeachingSkill" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Available Hours</label>
+                    <input asp-for="Input.AvailableHours"
+                           class="form-control"
+                           placeholder="2 hours daily" />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input asp-for="Input.ContactNumber" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Facebook Link</label>
+                    <input asp-for="Input.FacebookLink" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>LinkedIn Link</label>
+                    <input asp-for="Input.LinkedInLink" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

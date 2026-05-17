@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+    <div class="admin-wrapper">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon"><i class="fa-solid fa-globe"></i></span>
+                <h2>SkillSphere</h2>
+                <p>Admin Panel</p>
+            </div>
+
+            <div class="sidebar-menu">
+                <a asp-controller="Admin" asp-action="Index"
+                       class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a asp-controller="Admin" asp-action="Users"
+                       class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Users" ? "active" : "")">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a asp-controller="SkillPosts" asp-action="Index">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Skills</span>
+                </a>
+                <a asp-controller="Home" asp-action="Landing">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Site</span>
+                </a>
+            </div>
+        </aside>
+
+        <div class="main">
+            <div class="topbar">
+                <div>
+                    <h1>@ViewData["Title"]</h1>
+                    <p>Welcome back, Admin 👋</p>
+                </div>
+                <div class="admin-profile">
+                    <div class="admin-avatar">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h4>@User.Identity?.Name</h4>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content fade-up">
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@model SkillSphere.Models.SkillPost
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-danger">
+            Delete Skill
+        </h2>
+
+        <p>
+            Are you sure you want to delete:
+            <strong>@Model.Title</strong> ?
+        </p>
+
+        <form asp-action="Delete">
+
+            <input type="hidden" asp-for="Id" />
+
+            <button class="btn btn-danger">
+                Delete
+            </button>
+
+            <a asp-action="Index"
+                   class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

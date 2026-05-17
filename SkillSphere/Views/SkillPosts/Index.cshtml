@@ -1,0 +1,404 @@
+﻿@model IEnumerable<SkillSphere.Models.SkillPost>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Skills Feed";
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="skills-page">
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="skills-header text-center">
+
+            <span class="skills-tag">
+                Discover Skills
+            </span>
+
+            <h1 class="skills-main-title">
+                Skills Feed
+            </h1>
+
+            <p class="skills-subtitle">
+                Learn, Teach & Grow Together 🚀
+            </p>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <form method="get"
+              class="row g-3 mb-5 justify-content-center">
+
+            <div class="col-md-5">
+
+                <div class="search-wrapper">
+
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+
+                    <input type="text"
+                           name="search"
+                           value="@ViewBag.CurrentSearch"
+                           class="form-control search-input"
+                           placeholder="Search skills..." />
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <select name="category"
+                        class="form-select search-input category-select">
+
+                    <option value="">
+                        All Categories
+                    </option>
+
+                    <option value="Programming">
+                        Programming
+                    </option>
+
+                    <option value="Design">
+                        Design
+                    </option>
+
+                    <option value="Marketing">
+                        Marketing
+                    </option>
+
+                    <option value="AI">
+                        AI
+                    </option>
+
+                    <option value="Business">
+                        Business
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <select name="type"
+                        class="form-select search-input">
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="Learning">
+                        Learning
+                    </option>
+
+                    <option value="Teaching">
+                        Teaching
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button type="submit"
+                        class="btn-main w-100 search-btn">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- CREATE -->
+        @if (isAdmin)
+        {
+            <div class="text-center mb-5">
+
+                <a asp-action="Create"
+                   class="create-btn">
+
+                    <i class="fa-solid fa-plus"></i>
+                    Create Skill
+
+                </a>
+
+            </div>
+        }
+
+        <!-- EMPTY STATE -->
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+
+                <img src="~/images/empty.svg"
+                     class="empty-img" />
+
+                <h2>
+                    No Skills Found
+                </h2>
+
+                <p>
+                    Start sharing your first skill now 🚀
+                </p>
+
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 skill-item" id="skill-@item.Id">
+
+                        <div class="skill-card-new">
+
+                            <!-- TOP -->
+                            <div class="skill-card-top">
+
+                                <div class="skill-icon-large">
+
+                                    @if (item.Category == "Programming")
+                                    {
+                                        <i class="fa-solid fa-code"></i>
+                                    }
+                                    else if (item.Category == "Design")
+                                    {
+                                        <i class="fa-solid fa-palette"></i>
+                                    }
+                                    else if (item.Category == "Marketing")
+                                    {
+                                        <i class="fa-solid fa-bullhorn"></i>
+                                    }
+                                    else if (item.Category == "AI")
+                                    {
+                                        <i class="fa-solid fa-robot"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-briefcase"></i>
+                                    }
+
+                                </div>
+
+                                <span class="skill-date">
+                                    @item.CreatedAt.ToShortDateString()
+                                </span>
+
+                            </div>
+
+                            <!-- CATEGORY -->
+                            <div class="mb-3">
+
+                                <span class="category-badge">
+                                    @item.Category
+                                </span>
+
+                                <span class="type-badge">
+                                    @item.Type
+                                </span>
+
+                            </div>
+
+                            <!-- CONTENT -->
+                            <div class="skill-content">
+
+                                <h3 class="skill-name">
+                                    @item.Title
+                                </h3>
+
+                                <p class="skill-description">
+                                    @item.Description
+                                </p>
+
+                                <div class="offer-section">
+
+                                    <span class="offer-label">
+                                        Offers
+                                    </span>
+
+                                    <p class="offer-text">
+                                        @item.Offer
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- BUTTONS -->
+                            <div class="skill-actions">
+
+                                <a asp-action="Details"
+                                   asp-route-id="@item.Id"
+                                   class="skill-btn details-btn">
+
+                                    Details
+
+                                </a>
+
+                                @if (isAdmin)
+                                {
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.Id"
+                                       class="skill-btn edit-btn">
+
+                                        Edit
+
+                                    </a>
+
+                                    <button class="skill-btn delete-btn deleteBtn"
+                                            data-id="@item.Id">
+
+                                        Delete
+
+                                    </button>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+        }
+
+        <!-- PAGINATION -->
+
+        <div class="pagination-wrapper">
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a asp-route-page="@i"
+                   asp-route-search="@ViewBag.CurrentSearch"
+                   asp-route-category="@ViewBag.CurrentCategory"
+                   class="page-btn @(ViewBag.CurrentPage == i ? "active-page" : "")">
+
+                    @i
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- DELETE MODAL -->
+
+<div class="modal fade"
+     id="deleteModal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Delete Skill
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                Are you sure you want to delete this skill?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn btn-danger"
+                        id="confirmDelete">
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+    <div class="spinner-border text-light"></div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        let deleteId = 0;
+        let rowToDelete = null;
+
+        $(".deleteBtn").click(function () {
+
+            deleteId = $(this).data("id");
+
+            rowToDelete =
+                $("#skill-" + deleteId);
+
+            $("#deleteModal").modal("show");
+
+        });
+
+        $("#confirmDelete").click(function () {
+
+            $("#deleteModal").modal("hide");
+
+            $("#loader").css("display", "flex");
+
+            $.ajax({
+
+                url: "/SkillPosts/DeleteAjax",
+
+                type: "POST",
+
+                data: { id: deleteId },
+
+                success: function (res) {
+
+                    $("#loader").hide();
+
+                    if (res.success) {
+
+                        rowToDelete.fadeOut(500);
+
+                        showToast("Skill deleted successfully ✔");
+
+                    }
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+}

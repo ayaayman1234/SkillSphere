@@ -1,0 +1,98 @@
+﻿@model SkillSphere.Models.AdminDashboardViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="stats-grid">
+    <div class="dashboard-card">
+        <div class="card-icon blue">
+            <i class="fa-solid fa-users"></i>
+        </div>
+        <h4>Total Users</h4>
+        <h1>@Model.TotalUsers</h1>
+        <p>Registered on platform</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-icon green">
+            <i class="fa-solid fa-code"></i>
+        </div>
+        <h4>Total Skills</h4>
+        <h1>@Model.TotalSkills</h1>
+        <p>Skills shared</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-icon orange">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        </div>
+        <h4>Swap Requests</h4>
+        <h1>@Model.TotalRequests</h1>
+        <p>Exchange requests</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-icon purple">
+            <i class="fa-solid fa-server"></i>
+        </div>
+        <h4>System Status</h4>
+        <h1 style="font-size:2rem;">Active</h1>
+        <p>All systems running</p>
+    </div>
+</div>
+
+<div class="chart-grid">
+    <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-bar me-2"></i>Platform Analytics</h3>
+        <canvas id="dashboardChart" height="100"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-pie me-2"></i>Overview</h3>
+        <canvas id="pieChart" height="100"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Bar Chart
+        new Chart(document.getElementById('dashboardChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Users', 'Skills', 'Requests', 'Messages'],
+                datasets: [{
+                    label: 'Platform Stats',
+                    data: [@Model.TotalUsers, @Model.TotalSkills, @Model.TotalRequests, @Model.TotalMessages],
+                    backgroundColor: ['rgba(37,99,235,.8)', 'rgba(16,185,129,.8)', 'rgba(245,158,11,.8)', 'rgba(139,92,246,.8)'],
+                    borderRadius: 10,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+            }
+        });
+
+        // Pie Chart
+        new Chart(document.getElementById('pieChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Users', 'Skills', 'Requests'],
+                datasets: [{
+                    data: [@Model.TotalUsers, @Model.TotalSkills, @Model.TotalRequests],
+                    backgroundColor: ['#2563eb', '#10b981', '#f59e0b'],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } },
+                cutout: '65%'
+            }
+        });
+    </script>
+}

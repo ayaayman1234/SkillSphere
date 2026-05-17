@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SkillSphere.Models.SwapRequest>
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container py-5 requests-page">
+
+    <div class="page-header">
+        <h1>Skill Requests</h1>
+        <p>Manage your incoming and outgoing requests.</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-box">
+            <i class="fa-solid fa-repeat"></i>
+            <h4>No requests found</h4>
+        </div>
+    }
+    else
+    {
+        <div class="requests-grid">
+
+            @foreach (var item in Model)
+            {
+                <div class="request-card-new">
+
+                    <div class="request-status">
+                        @if (item.Status == "Pending")
+                        {
+                            <span class="status-pending">
+                                Pending
+                            </span>
+                        }
+                        else if (item.Status == "Accepted")
+                        {
+                            <span class="status-active">
+                                Accepted
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-banned">
+                                Rejected
+                            </span>
+                        }
+                    </div>
+
+                    <div class="request-content">
+
+                        <h5>Skill Exchange Request</h5>
+
+                        <p>
+                            From User:
+                            @item.FromUserId
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

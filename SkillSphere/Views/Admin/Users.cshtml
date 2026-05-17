@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SkillSphere.Models.ApplicationUser>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Users Management";
+}
+
+<div class="table-card">
+    <div class="table-header">
+        <h3><i class="fa-solid fa-users me-2"></i>All Users</h3>
+        <span class="users-count">@Model.Count() Users</span>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search by email..." />
+    </div>
+
+    <table class="admin-table" id="usersTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Teaching</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td><span class="row-num">@i</span></td>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-avatar-sm">
+                                @(string.IsNullOrEmpty(user.FullName) ? "?" : user.FullName[0].ToString().ToUpper())
+                            </div>
+                            <span>@(user.FullName ?? "—")</span>
+                        </div>
+                    </td>
+                    <td>@user.Email</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(user.TeachingSkill))
+                        {
+                            <span class="status status-active">@user.TeachingSkill</span>
+                        }
+                        else
+                        {
+                            <span style="color:#94a3b8;">—</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            <form method="post" asp-action="MakeAdmin" style="display:inline">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button class="admin-btn btn-primary-admin">
+                                    <i class="fa-solid fa-shield me-1"></i> Make Admin
+                                </button>
+                            </form>
+                            <form method="post" asp-action="DeleteUser" style="display:inline"
+                                  onsubmit="return confirm('Delete this user?')">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button class="admin-btn btn-danger-admin">
+                                    <i class="fa-solid fa-trash me-1"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            const val = this.value.toLowerCase();
+            document.querySelectorAll('#usersTable tbody tr').forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(val) ? '' : 'none';
+            });
+        });
+    </script>
+}

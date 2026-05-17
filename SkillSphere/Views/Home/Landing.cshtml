@@ -1,0 +1,111 @@
+﻿@using SkillSphere.Models
+
+@{
+    Layout = null;
+    ViewData["Title"] = "SkillSphere";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<nav class="navbar-custom">
+    <div class="logo">SkillSphere</div>
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="AboutUs">About Us</a>
+        <a asp-controller="Home" asp-action="ContactUs">Contact</a>
+        <a asp-controller="SkillPosts" asp-action="Index">Skills</a>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-text">
+            <span class="tagline">#1 Skill Exchange Platform</span>
+            <h1>Exchange Skills.<br />Learn Faster.<br />Grow Together.</h1>
+            <p>Join SkillSphere and connect with people who can teach you new skills while sharing their own expertise with the community.</p>
+            <div class="hero-buttons">
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn-main">Get Started</a>
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn-outline">Login</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="~/images/hero.svg" alt="Hero Image" />
+        </div>
+    </div>
+</section>
+<section class="features-section">
+    <h2 class="section-title">Why SkillSphere?</h2>
+    <p class="section-subtitle">Everything you need to learn and teach in one place.</p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+            <h3>Skill Matching</h3>
+            <p>We connect users with the right skills automatically.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+            <h3>Community Learning</h3>
+            <p>Learn from real people not just courses.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-paper-plane"></i></div>
+            <h3>Skill Requests</h3>
+            <p>Send requests to exchange skills instantly.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-star"></i></div>
+            <h3>Favorite Skills</h3>
+            <p>Save your favorite skills and users easily.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Start Learning?</h2>
+        <p>Browse hundreds of skills shared by real people in our community.</p>
+        <div class="cta-buttons">
+            <a asp-controller="SkillPosts" asp-action="Index" class="btn-main">
+                <i class="fa-solid fa-magnifying-glass"></i> Browse Skills
+            </a>
+            <a asp-controller="Home" asp-action="AboutUs" class="btn-outline">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <h2 class="section-title">What Users Say</h2>
+    <div class="testimonial-wrapper">
+        <div class="testimonial-card">
+            <p>"SkillSphere helped me learn UI/UX in 2 weeks!"</p>
+            <span>- Ahmed</span>
+        </div>
+        <div class="testimonial-card">
+            <p>"I exchanged C# for Photoshop skills easily."</p>
+            <span>- Sara</span>
+        </div>
+        <div class="testimonial-card">
+            <p>"Amazing platform for networking and learning."</p>
+            <span>- Mona</span>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div>
+            <h3>SkillSphere</h3>
+            <p>Learn, teach and grow together.</p>
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+    <hr />
+    <p class="footer-copy">© 2026 SkillSphere — All Rights Reserved</p>
+</footer>

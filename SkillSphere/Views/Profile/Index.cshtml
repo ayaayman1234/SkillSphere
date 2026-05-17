@@ -1,0 +1,180 @@
+﻿@model SkillSphere.Models.ApplicationUser
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="profile-page">
+    <div class="container">
+
+        <div class="profile-card">
+
+            <h2>@Model.FullName</h2>
+
+            <div class="rating-summary">
+                @if (ViewBag.RatingCount > 0)
+                {
+                    <div class="rating-stars-display">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <i class="fa-solid fa-star @(i <= ViewBag.AverageRating ? "star-filled" : "star-empty")"></i>
+                        }
+                        <span class="rating-score">@ViewBag.AverageRating</span>
+                        <span class="rating-count">(@ViewBag.RatingCount reviews)</span>
+                    </div>
+                }
+                else
+                {
+                    <p class="no-rating">No ratings yet</p>
+                }
+            </div>
+
+            <p class="profile-bio">@Model.Bio</p>
+
+            <div class="profile-info">
+                <div class="info-box">
+                    <h5>Learning</h5>
+                    <p>@Model.LearningSkill</p>
+                </div>
+                <div class="info-box">
+                    <h5>Teaching</h5>
+                    <p>@Model.TeachingSkill</p>
+                </div>
+                <div class="info-box">
+                    <h5>Available Hours</h5>
+                    <p>@Model.AvailableHours</p>
+                </div>
+                <div class="info-box">
+                    <h5>Phone</h5>
+                    <p>@Model.ContactNumber</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                @if (!string.IsNullOrEmpty(Model.LinkedInLink))
+                {
+                    <a href="@Model.LinkedInLink">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(Model.FacebookLink))
+                {
+                    <a href="@Model.FacebookLink">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                }
+            </div>
+            @if (ViewBag.IsOwner)
+            {
+                <div class="mt-4 text-center">
+                    <a asp-action="Edit" class="btn-main">
+                        <i class="fa-solid fa-pen me-2"></i>
+                        Edit Profile
+                    </a>
+                </div>
+            }
+
+
+        </div>
+
+        @if (!ViewBag.IsOwner)
+        {
+            <div class="rate-section mt-5">
+                <h3>@(ViewBag.AlreadyRated ? "Update Your Rating" : "Rate This Teacher")</h3>
+                <form asp-controller="Rating" asp-action="Submit" method="post">
+                    <input type="hidden" name="ratedUserId" value="@ViewBag.ProfileUserId" />
+                    <div class="star-picker" id="starPicker">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <i class="fa-solid fa-star rate-star" data-value="@i"></i>
+                        }
+                    </div>
+                    <input type="hidden" name="score" id="scoreInput" value="0" />
+                    <textarea name="comment"
+                              class="form-control mt-3"
+                              rows="3"
+                              placeholder="Leave a comment (optional)..."
+                              style="border-radius:14px; padding:14px;"></textarea>
+                    <button type="submit" class="btn-main mt-3">
+                        <i class="fa-solid fa-star me-2"></i>
+                        Submit Rating
+                    </button>
+                </form>
+            </div>
+        }
+
+        @if (ViewBag.RatingCount > 0)
+        {
+            <div class="reviews-section mt-5">
+                <h3>Reviews</h3>
+                <div class="reviews-list">
+                    @foreach (var r in ViewBag.Ratings)
+                    {
+                        <div class="review-card">
+                            <div class="review-header">
+                                <strong>@r.Rater.FullName</strong>
+                                <div class="review-stars">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="fa-solid fa-star @(i <= r.Score ? "star-filled" : "star-empty")"></i>
+                                    }
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(r.Comment))
+                            {
+                                <p class="review-comment">@r.Comment</p>
+                            }
+                            <small class="review-date">@r.CreatedAt.ToShortDateString()</small>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="mt-5">
+            <h3 class="mb-4">User Skills</h3>
+            <div class="row g-4">
+                @foreach (var skill in ViewBag.UserSkills)
+                {
+                    <div class="col-md-4">
+                        <div class="skill-card-new">
+                            <span class="category-badge">@skill.Category</span>
+                            <h4 class="skill-name">@skill.Title</h4>
+                            <p class="skill-description">@skill.Description</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let selectedScore = 0;
+        const stars = document.querySelectorAll('.rate-star');
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function () {
+                const val = this.dataset.value;
+                stars.forEach(s => {
+                    s.classList.toggle('star-hover', s.dataset.value <= val);
+                });
+            });
+
+            star.addEventListener('mouseout', function () {
+                stars.forEach(s => {
+                    s.classList.remove('star-hover');
+                    s.classList.toggle('star-selected', s.dataset.value <= selectedScore);
+                });
+            });
+
+            star.addEventListener('click', function () {
+                selectedScore = this.dataset.value;
+                document.getElementById('scoreInput').value = selectedScore;
+                stars.forEach(s => {
+                    s.classList.toggle('star-selected', s.dataset.value <= selectedScore);
+                });
+            });
+        });
+    </script>
+}

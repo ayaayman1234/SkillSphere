@@ -1,0 +1,138 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = "_AuthLayout"; ;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Login - SkillSphere</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/auth.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-left">
+
+            <div class="left-content">
+
+                <span class="tagline">
+                    Welcome To SkillSphere
+                </span>
+
+                <h1>
+                    Learn.<br />
+                    Share.<br />
+                    Grow.
+                </h1>
+
+                <p>
+                    Connect with talented people,
+                    exchange skills, and build your
+                    future with a powerful learning community.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-right">
+
+            <div class="auth-card">
+
+                <h2>
+                    Welcome Back 👋
+                </h2>
+
+                <p class="subtitle">
+                    Login to continue your journey.
+                </p>
+
+                <form method="post">
+
+                    <div class="form-group">
+
+                        <label>Email</label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <input asp-for="Input.Email"
+                                   class="form-control"
+                                   placeholder="Enter your email" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Password</label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input asp-for="Input.Password"
+                                   class="form-control"
+                                   placeholder="Enter your password" />
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit"
+                            class="auth-btn">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <div class="bottom-text">
+
+                    Don’t have an account?
+
+                    <a asp-page="/Account/Register">
+
+                        Create Account
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

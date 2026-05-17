@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SkillSphere.Models.SkillPost>
+
+@{
+    ViewData["Title"] = "Skills";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<h1 class="page-title">Available Skills</h1>
+
+<div class="skills-grid">
+
+    @foreach (var item in Model)
+    {
+        <div class="skill-card">
+
+            <h3>@item.Title</h3>
+
+            <p>@item.Description</p>
+
+            <p><b>Can Offer:</b> @item.Offer</p>
+
+            <div class="card-actions">
+
+                <!-- Request Swap (مستقبلي) -->
+                <button class="btn-request"
+                        onclick="alert('Swap request sent!')">
+                    Request Swap
+                </button>
+
+                <!-- Delete (صح) -->
+                <a asp-action="Delete"
+                       asp-route-id="@item.Id"
+                       class="btn-delete"
+                       onclick="return confirm('Are you sure?')">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+    }
+
+</div>

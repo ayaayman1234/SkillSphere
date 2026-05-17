@@ -1,0 +1,154 @@
+﻿@model SkillSphere.Models.SkillPost
+
+@{
+    ViewData["Title"] = "Edit Skill";
+}
+
+<div class="container mt-5 mb-5">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <div class="mb-4">
+
+            <h2 class="fw-bold">
+                Edit Skill
+            </h2>
+
+            <p class="text-muted">
+                Update your skill information.
+            </p>
+
+        </div>
+
+        <form asp-action="Edit">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+            <!-- TITLE -->
+            <div class="mb-4">
+
+                <label asp-for="Title"
+                       class="form-label fw-semibold">
+
+                    Skill Title
+
+                </label>
+
+                <input asp-for="Title"
+                       class="form-control custom-input" />
+
+                <span asp-validation-for="Title"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <!-- OFFER -->
+            <div class="mb-4">
+
+                <label asp-for="Offer"
+                       class="form-label fw-semibold">
+
+                    Offer
+
+                </label>
+
+                <input asp-for="Offer"
+                       class="form-control custom-input" />
+
+                <span asp-validation-for="Offer"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="mb-4">
+
+                <label asp-for="Category"
+                       class="form-label fw-semibold">
+
+                    Category
+
+                </label>
+
+                <select asp-for="Category"
+                        class="form-select custom-select">
+
+                    <option value="Programming">Programming</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="AI">AI</option>
+                    <option value="Business">Business</option>
+
+                </select>
+
+            </div>
+
+            <!-- TYPE -->
+            <div class="mb-4">
+
+                <label asp-for="Type"
+                       class="form-label fw-semibold">
+
+                    Type
+
+                </label>
+
+                <select asp-for="Type"
+                        class="form-select custom-select">
+
+                    <option value="Learning">Learning</option>
+                    <option value="Teaching">Teaching</option>
+
+                </select>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="mb-4">
+
+                <label asp-for="Description"
+                       class="form-label fw-semibold">
+
+                    Description
+
+                </label>
+
+                <textarea asp-for="Description"
+                          class="form-control custom-textarea"
+                          rows="5"></textarea>
+
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="d-flex gap-3">
+
+                <button type="submit"
+                        class="save-btn">
+
+                    Save Changes
+
+                </button>
+
+                <a asp-action="Index"
+                       class="cancel-btn">
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
