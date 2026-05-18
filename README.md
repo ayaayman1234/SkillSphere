@@ -2,25 +2,25 @@
 SkillSphere is an ASP.NET Core MVC web application that allows users to share skills, connect with others, and communicate through a simple and interactive platform.
 ---
 ## 🚀 Features
-- 🔐 User Authentication (Register / Login)
--📚 Share and manage skills
--🔁 Swap skills with other users
--💬 Real-time messaging system
--⭐ Rating system for users
--🔔 Notifications system
--🧑‍💼 Admin dashboard for management
--🎨 Clean and responsive UI using Razor Views + Bootstrap
 
+- 🔐 User Authentication (Register / Login)
+- 📚 Share and manage skills
+- 🔁 Swap skills with other users
+- 💬 Real-time messaging system
+- ⭐ Rating system for users
+- 🔔 Notifications system
+- 🧑‍💼 Admin dashboard for management
+- 🎨 Clean and responsive UI using Razor Views + Bootstrap
   ---
   ## 🛠️ Built With
 
 - ASP.NET Core MVC
--C#
--Entity Framework Core
--SQL Server
--HTML5 / CSS3
--Bootstrap 5
--Razor Views
+- C#
+- Entity Framework Core
+- SQL Server
+- HTML5 / CSS3
+- Bootstrap 5
+- Razor Views
 
  ---
  ## 📂 ## 📂 Project Structure
