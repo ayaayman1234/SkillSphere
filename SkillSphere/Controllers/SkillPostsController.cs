@@ -160,42 +160,6 @@ namespace SkillSphere.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= DELETE =================
-
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var skill = await _context.SkillPosts
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (skill == null)
-                return NotFound();
-
-            return View(skill);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var skill = await _context.SkillPosts.FindAsync(id);
-
-            if (skill != null)
-            {
-                _context.SkillPosts.Remove(skill);
-                await _context.SaveChangesAsync();
-            }
-
-            TempData["success"] = "Skill deleted successfully";
-
-            return RedirectToAction(nameof(Index));
-        }
-
         // ================= AJAX DELETE =================
 
         [HttpPost]
