@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SkillSphere.Data;
 using SkillSphere.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace SkillSphere.Controllers
 {
@@ -49,26 +50,43 @@ namespace SkillSphere.Controllers
         }
 
         [HttpPost]
-        public IActionResult ContactUs(
+        public async Task<IActionResult> ContactUs(
             string name,
             string email,
             string message)
         {
-            TempData["Message"] =
-                "Message sent successfully ✔";
+            // ===== حفظ الـ Message =====
+            var newMessage = new Message
+            {
+                SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "guest",
+                ReceiverId = "admin",
+                Content = $"From: {name} ({email})\n\n{message}",
+                SentAt = DateTime.Now
+            };
+
+            _context.Messages.Add(newMessage);
+
+            // ===== إرسال Notification للـ Admin =====
+            var admin = _context.Users
+                .FirstOrDefault(u => u.Email == "admin@skillsphere.com");
+
+            if (admin != null)
+            {
+                _context.Notifications.Add(new Notification
+                {
+                    UserId = admin.Id,
+                    Text = $"New contact message from {name}",
+                    IsRead = false,
+                    CreatedAt = DateTime.Now
+                });
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Message sent successfully ✔";
 
             return RedirectToAction("ContactUs");
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(
-            Duration = 0,
-            Location = ResponseCacheLocation.None,
-            NoStore = true)]
 
         public IActionResult Error()
         {

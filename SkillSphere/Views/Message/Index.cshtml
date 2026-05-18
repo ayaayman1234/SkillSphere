@@ -6,42 +6,67 @@
     <div class="container">
 
         <div class="skills-header text-center">
-            <span class="skills-tag">Inbox</span>
-            <h1 class="skills-main-title">Messages</h1>
-            <p class="skills-subtitle">Connect and chat with other users.</p>
+
+            <span class="skills-tag">Messages</span>
+
+            <h1 class="skills-main-title">
+                Messages
+            </h1>
+
+            <p class="skills-subtitle">
+                Chat privately with other users in real time.
+            </p>
+
         </div>
 
-        @if (!Model.Any())
+        @if (Model == null || !Model.Any())
         {
             <div class="text-center py-5">
-                <i class="fa-regular fa-envelope-open" style="font-size:4rem; color:#dbeafe;"></i>
-                <h3 class="mt-4" style="color:#94a3b8;">No messages yet</h3>
+
+                <i class="fa-regular fa-message" style="font-size:4rem; color:#dbeafe;"></i>
+
+                <h3 class="mt-4" style="color:#94a3b8;">
+                    No messages yet
+                </h3>
+
+                <p style="color:#94a3b8;">
+                    Start a conversation with other users.
+                </p>
+
             </div>
         }
         else
         {
             <div class="messages-list">
+
                 @foreach (var item in Model)
                 {
                     <div class="message-card">
 
                         <div class="message-top">
+
                             <div class="message-user">
                                 <i class="fa-solid fa-user"></i>
                             </div>
+
                             <span class="message-date">
                                 <i class="fa-solid fa-clock me-1"></i>
                                 @item.SentAt.ToString("dd MMM yyyy - hh:mm tt")
                             </span>
+
                         </div>
 
                         <div class="message-content">
+
                             <h5>Message</h5>
+
                             <p>@item.Content</p>
+
                         </div>
 
                     </div>
                 }
+
             </div>
         }
 

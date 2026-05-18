@@ -34,101 +34,177 @@
                 <a class="navbar-brand fw-bold logo-text"
                        asp-controller="Home"
                        asp-action="Landing">
+
                     SkillSphere
+
                 </a>
 
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarNav">
+
                     <span class="navbar-toggler-icon"></span>
+
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse"
+                     id="navbarNav">
 
                     <ul class="navbar-nav ms-auto align-items-center gap-3">
 
                         <li class="nav-item">
+
                             <a class="nav-link"
-                               asp-controller="Home"
-                               asp-action="AboutUs">About</a>
+                                   asp-controller="Home"
+                                   asp-action="AboutUs">
+
+                                About
+
+                            </a>
+
                         </li>
 
                         <li class="nav-item">
+
                             <a class="nav-link"
-                               asp-controller="Home"
-                               asp-action="ContactUs">Contact</a>
+                                   asp-controller="Home"
+                                   asp-action="ContactUs">
+
+                                Contact
+
+                            </a>
+
                         </li>
 
                         <li class="nav-item">
+
                             <a class="nav-link"
-                               asp-controller="SkillPosts"
-                               asp-action="Index">Skills</a>
+                                   asp-controller="SkillPosts"
+                                   asp-action="Index">
+
+                                Skills
+
+                            </a>
+
                         </li>
 
-                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        @if (User.Identity != null &&
+                       User.Identity.IsAuthenticated)
                         {
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+
+                                    <a class="nav-link"
+                                           asp-controller="Profile"
+                                           asp-action="Index">
+
+                                        Profile
+
+                                    </a>
+
+                                </li>
+                            }
+
                             <li class="nav-item">
+
                                 <a class="nav-link"
-                                       asp-controller="Profile"
-                                       asp-action="Index"
-                                       asp-route-id="">
-                                    Profile
+                                       asp-controller="Message"
+                                       asp-action="Index">
+
+                                    Messages
+
                                 </a>
+
                             </li>
 
                             <li class="nav-item">
+
                                 <a class="nav-link"
-                                   asp-controller="Message"
-                                   asp-action="Index">Messages</a>
+                                       asp-controller="Notification"
+                                       asp-action="Index">
+
+                                    Notifications
+
+                                </a>
+
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="Notification"
-                                   asp-action="Index">Notifications</a>
+
+                                <a asp-controller="SwapRequests" asp-action="Index">Requests</a>
+
                             </li>
 
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
+
                                     <a class="nav-link"
-                                       asp-controller="Admin"
-                                       asp-action="Index">Dashboard</a>
+                                           asp-controller="Admin"
+                                           asp-action="Index">
+
+                                        Dashboard
+
+                                    </a>
+
                                 </li>
                             }
 
                             <li class="nav-item">
+
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <span class="role-badge admin-badge">Admin</span>
+                                    <span class="role-badge admin-badge">
+                                        Admin
+                                    </span>
                                 }
                                 else
                                 {
-                                    <span class="role-badge user-badge">User</span>
+                                    <span class="role-badge user-badge">
+                                        User
+                                    </span>
                                 }
+
                             </li>
 
                             <li class="nav-item">
+
                                 <button class="btn btn-danger logout-btn"
                                         data-bs-toggle="modal"
                                         data-bs-target="#logoutModal">
+
                                     Logout
+
                                 </button>
+
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
+
                                 <a class="btn btn-outline-primary"
-                                   asp-area="Identity"
-                                   asp-page="/Account/Login">Login</a>
+                                       asp-area="Identity"
+                                       asp-page="/Account/Login">
+
+                                    Login
+
+                                </a>
+
                             </li>
 
                             <li class="nav-item">
+
                                 <a class="btn btn-primary"
-                                   asp-area="Identity"
-                                   asp-page="/Account/Register">Register</a>
+                                       asp-area="Identity"
+                                       asp-page="/Account/Register">
+
+                                    Register
+
+                                </a>
+
                             </li>
                         }
 
@@ -142,61 +218,122 @@
     }
 
     <main role="main">
+
         @RenderBody()
+
     </main>
 
-    <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+
         <div id="liveToast"
              class="toast align-items-center text-bg-success border-0"
              role="alert">
+
             <div class="d-flex">
-                <div class="toast-body" id="toastMessage">Success</div>
+
+                <div class="toast-body"
+                     id="toastMessage">
+
+                    Success
+
+                </div>
+
                 <button type="button"
                         class="btn-close btn-close-white me-2 m-auto"
                         data-bs-dismiss="toast">
                 </button>
+
             </div>
+
         </div>
+
     </div>
 
-    <div class="modal fade" id="logoutModal" tabindex="-1">
+    <div class="modal fade"
+         id="logoutModal"
+         tabindex="-1">
+
         <div class="modal-dialog modal-dialog-centered">
+
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <h5 class="modal-title">Logout</h5>
+
+                    <h5 class="modal-title">
+                        Logout
+                    </h5>
+
                 </div>
+
                 <div class="modal-body">
+
                     Are you sure you want to logout?
+
                 </div>
+
                 <div class="modal-footer">
+
                     <button type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal">
+
                         Cancel
+
                     </button>
+
                     <form method="post"
                           asp-area="Identity"
                           asp-page="/Account/Logout">
-                        <button type="submit" class="btn btn-danger">Logout</button>
+
+                        <button type="submit"
+                                class="btn btn-danger">
+
+                            Logout
+
+                        </button>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-            function showToast(message) {
-                $("#toastMessage").text(message);
-                var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+
+                function showToast(message) {
+
+                const toastEl = document.getElementById('liveToast');
+
+                document.getElementById('toastMessage').innerText = message;
+
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 3000,
+                    animation: true
+                });
+
                 toast.show();
             }
+
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
+    @if (TempData["Toast"] != null)
+    {
+        <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    showToast(@Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["Toast"])));
+                });
+        </script>
+    }
 </body>
 
 </html>

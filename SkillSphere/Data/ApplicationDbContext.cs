@@ -13,27 +13,25 @@ namespace SkillSphere.Data
 
         public DbSet<SkillPost> SkillPosts { get; set; }
         public DbSet<SwapRequest> SwapRequests { get; set; }
-        public DbSet<FavoriteSkill> FavoriteSkills { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // ===== Fix Cascade Delete for Ratings =====
-            builder.Entity<Rating>()
-                .HasOne(r => r.Rater)
+            // SwapRequest Relationships
+            builder.Entity<SwapRequest>()
+                .HasOne(r => r.FromUser)
                 .WithMany()
-                .HasForeignKey(r => r.RaterId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(r => r.FromUserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Rating>()
-                .HasOne(r => r.RatedUser)
+            builder.Entity<SwapRequest>()
+                .HasOne(r => r.ToUser)
                 .WithMany()
-                .HasForeignKey(r => r.RatedUserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(r => r.ToUserId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

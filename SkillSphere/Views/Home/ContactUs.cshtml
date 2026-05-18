@@ -4,56 +4,60 @@
 
 <link rel="stylesheet" href="~/css/site.css" />
 
-<div class="container py-5">
+<div class="skills-page">
+    <div class="container">
 
-    <div class="contact-card">
+        <div class="skills-header text-center">
+            <span class="skills-tag">Get In Touch</span>
+            <h1 class="skills-main-title">Contact Us</h1>
+            <p class="skills-subtitle">Send us a message and we'll get back to you.</p>
+        </div>
 
-        <h1 class="mb-4">
-            Contact Us
-        </h1>
+        <div class="contact-card">
 
-        @if (TempData["Message"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["Message"]
-            </div>
-        }
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success rounded-3 mb-4">
+                    @TempData["Message"]
+                </div>
+            }
 
-        <form method="post">
+            <form asp-controller="Home" asp-action="ContactUs" method="post">
 
-            <div class="mb-4">
+                <div class="edit-grid mb-4">
+                    <div class="edit-field">
+                        <label>Your Name</label>
+                        <input type="text"
+                               name="name"
+                               class="edit-input"
+                               placeholder="Full name" />
+                    </div>
 
-                <input type="text"
-                       name="name"
-                       class="form-control"
-                       placeholder="Your Name" />
+                    <div class="edit-field">
+                        <label>Your Email</label>
+                        <input type="email"
+                               name="email"
+                               class="edit-input"
+                               placeholder="email@example.com" />
+                    </div>
+                </div>
 
-            </div>
+                <div class="edit-field mb-4">
+                    <label>Message</label>
+                    <textarea name="message"
+                              rows="6"
+                              class="edit-input"
+                              placeholder="Write your message here..."></textarea>
+                </div>
 
-            <div class="mb-4">
+                <button type="submit" class="btn-main border-0">
+                    <i class="fa-solid fa-paper-plane me-2"></i>
+                    Send Message
+                </button>
 
-                <input type="email"
-                       name="email"
-                       class="form-control"
-                       placeholder="Your Email" />
+            </form>
 
-            </div>
-
-            <div class="mb-4">
-
-                <textarea name="message"
-                          rows="6"
-                          class="form-control"
-                          placeholder="Your Message"></textarea>
-
-            </div>
-
-            <button class="btn-main border-0">
-                Send Message
-            </button>
-
-        </form>
+        </div>
 
     </div>
-
 </div>

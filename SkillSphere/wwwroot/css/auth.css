@@ -1,8 +1,7 @@
-﻿/* ================= GOOGLE FONT ================= */
+﻿
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ================= RESET ================= */
 
 * {
     margin: 0;
@@ -16,7 +15,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= AUTH CONTAINER ================= */
 
 .auth-container {
     min-height: 100vh;
@@ -24,7 +22,6 @@ body {
     position: relative;
 }
 
-/* ================= LEFT SIDE ================= */
 
 .auth-left {
     width: 50%;
@@ -141,7 +138,6 @@ body {
         color: #60a5fa;
     }
 
-/* ================= RIGHT SIDE ================= */
 
 .auth-right {
     width: 50%;
@@ -186,7 +182,6 @@ body {
     line-height: 1.7;
 }
 
-/* ================= FORM ================= */
 
 .form-group {
     margin-bottom: 22px;
@@ -218,7 +213,7 @@ body {
         box-shadow: 0 0 0 4px rgba(37,99,235,.1);
     }
 
-/* ================= PASSWORD BOX ================= */
+
 
 .password-box {
     position: relative;
@@ -232,7 +227,6 @@ body {
         cursor: pointer;
     }
 
-/* ================= OPTIONS ================= */
 
 .auth-options {
     display: flex;
@@ -261,7 +255,7 @@ body {
         color: #1d4ed8;
     }
 
-/* ================= BUTTON ================= */
+
 
 .auth-btn {
     width: 100%;
@@ -283,7 +277,7 @@ body {
         box-shadow: 0 20px 40px rgba(37,99,235,.35);
     }
 
-/* ================= DIVIDER ================= */
+
 
 .auth-divider {
     display: flex;
@@ -305,7 +299,6 @@ body {
         margin: 0 15px;
     }
 
-/* ================= SOCIAL BUTTONS ================= */
 
 .social-login {
     display: flex;
@@ -329,7 +322,6 @@ body {
         transform: translateY(-3px);
     }
 
-/* ================= BOTTOM ================= */
 
 .bottom-text {
     text-align: center;
@@ -348,7 +340,6 @@ body {
             color: #1d4ed8;
         }
 
-/* ================= ALERTS ================= */
 
 .validation-summary-errors {
     background: #fee2e2;
@@ -365,7 +356,6 @@ body {
         padding: 0;
     }
 
-/* ================= ANIMATIONS ================= */
 
 @keyframes fadeUp {
 
@@ -392,8 +382,6 @@ body {
         transform: translateX(0);
     }
 }
-
-/* ================= MOBILE ================= */
 
 @media(max-width: 1100px) {
 
@@ -433,7 +421,7 @@ body {
         align-items: flex-start;
     }
 }
-/* ================= REGISTER PAGE FIX ================= */
+
 
 .auth-container {
     padding-top: 0;

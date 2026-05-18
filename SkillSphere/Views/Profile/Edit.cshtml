@@ -8,14 +8,10 @@
         <div class="profile-card">
 
             <h2>Edit Profile</h2>
-            <p class="profile-bio mb-4">Update your personal information</p>
 
-            @if (TempData["Success"] != null)
-            {
-                <div class="alert alert-success rounded-3 mb-4">
-                    @TempData["Success"]
-                </div>
-            }
+            <p class="profile-bio mb-4">
+                Update your personal information
+            </p>
 
             <form asp-action="Edit" method="post">
 
@@ -23,8 +19,7 @@
 
                     <div class="edit-field">
                         <label>Full Name</label>
-                        <input type="text"
-                               name="fullName"
+                        <input type="text" name="fullName"
                                value="@Model.FullName"
                                class="edit-input"
                                placeholder="Your full name" />
@@ -32,8 +27,7 @@
 
                     <div class="edit-field">
                         <label>Contact Number</label>
-                        <input type="text"
-                               name="contactNumber"
+                        <input type="text" name="contactNumber"
                                value="@Model.ContactNumber"
                                class="edit-input"
                                placeholder="Your phone number" />
@@ -41,8 +35,7 @@
 
                     <div class="edit-field">
                         <label>Learning Skill</label>
-                        <input type="text"
-                               name="learningSkill"
+                        <input type="text" name="learningSkill"
                                value="@Model.LearningSkill"
                                class="edit-input"
                                placeholder="What do you want to learn?" />
@@ -50,8 +43,7 @@
 
                     <div class="edit-field">
                         <label>Teaching Skill</label>
-                        <input type="text"
-                               name="teachingSkill"
+                        <input type="text" name="teachingSkill"
                                value="@Model.TeachingSkill"
                                class="edit-input"
                                placeholder="What can you teach?" />
@@ -59,8 +51,7 @@
 
                     <div class="edit-field">
                         <label>Available Hours</label>
-                        <input type="text"
-                               name="availableHours"
+                        <input type="text" name="availableHours"
                                value="@Model.AvailableHours"
                                class="edit-input"
                                placeholder="e.g. 9AM - 5PM" />
@@ -68,8 +59,7 @@
 
                     <div class="edit-field">
                         <label>Facebook Link</label>
-                        <input type="text"
-                               name="facebookLink"
+                        <input type="text" name="facebookLink"
                                value="@Model.FacebookLink"
                                class="edit-input"
                                placeholder="https://facebook.com/..." />
@@ -77,8 +67,7 @@
 
                     <div class="edit-field">
                         <label>LinkedIn Link</label>
-                        <input type="text"
-                               name="linkedInLink"
+                        <input type="text" name="linkedInLink"
                                value="@Model.LinkedInLink"
                                class="edit-input"
                                placeholder="https://linkedin.com/in/..." />
@@ -95,13 +84,16 @@
                 </div>
 
                 <div class="edit-actions mt-4">
+
                     <button type="submit" class="btn-main">
                         <i class="fa-solid fa-floppy-disk me-2"></i>
                         Save Changes
                     </button>
+
                     <a asp-action="Index" class="btn-cancel">
                         Cancel
                     </a>
+
                 </div>
 
             </form>

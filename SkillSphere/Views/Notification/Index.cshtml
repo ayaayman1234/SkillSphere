@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SkillSphere.Models.Message>
+﻿@model IEnumerable<SkillSphere.Models.Notification>
 
 @{
-    ViewData["Title"] = "Messages";
+    ViewData["Title"] = "Notifications";
 }
 
 <div class="skills-page">
@@ -9,27 +9,29 @@
     <div class="container">
 
         <div class="skills-header text-center">
-            <span class="skills-tag">Inbox</span>
+
+            <span class="skills-tag">Notifications</span>
 
             <h1 class="skills-main-title">
-                Messages
+                Notifications
             </h1>
 
             <p class="skills-subtitle">
-                Stay connected with your community.
+                Stay updated with your account activity.
             </p>
+
         </div>
 
-        @if (!Model.Any())
+        @if (Model == null || !Model.Any())
         {
             <div class="empty-box text-center">
 
-                <i class="fa-regular fa-envelope-open empty-icon"></i>
+                <i class="fa-regular fa-bell empty-icon"></i>
 
-                <h2>No messages yet</h2>
+                <h2>No notifications yet</h2>
 
                 <p>
-                    Your conversations will appear here.
+                    You will see updates here when something happens.
                 </p>
 
             </div>
@@ -45,11 +47,13 @@
                         <div class="message-card">
 
                             <div class="message-top">
-                                <h4>@item.Content</h4>
+
+                                <h4>@item.Text</h4>
 
                                 <span>
-                                    @item.SentAt.ToShortDateString()
+                                    @item.CreatedAt.ToShortDateString()
                                 </span>
+
                             </div>
 
                         </div>

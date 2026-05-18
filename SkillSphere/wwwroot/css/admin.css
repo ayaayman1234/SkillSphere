@@ -1,8 +1,7 @@
-﻿/* ================= GOOGLE FONT ================= */
+﻿
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ================= RESET ================= */
 
 * {
     margin: 0;
@@ -17,14 +16,10 @@ body {
     color: #0f172a;
 }
 
-/* ================= ADMIN LAYOUT ================= */
-
 .admin-wrapper {
     display: flex;
     min-height: 100vh;
 }
-
-/* ================= SIDEBAR ================= */
 
 .sidebar {
     width: 280px;
@@ -88,7 +83,6 @@ body {
         box-shadow: 0 10px 25px rgba(37,99,235,.35);
     }
 
-/* ================= MAIN ================= */
 
 .main {
     flex: 1;
@@ -96,7 +90,6 @@ body {
     padding: 40px;
 }
 
-/* ================= TOPBAR ================= */
 
 .topbar {
     background: white;
@@ -147,7 +140,7 @@ body {
         font-size: 14px;
     }
 
-/* ================= DASHBOARD CARDS ================= */
+
 
 .stats-grid {
     display: grid;
@@ -199,7 +192,7 @@ body {
         font-size: 14px;
     }
 
-/* ================= CHARTS ================= */
+
 
 .chart-grid {
     display: grid;
@@ -221,7 +214,7 @@ body {
         color: #0f172a;
     }
 
-/* ================= TABLE ================= */
+
 
 .table-card {
     background: white;
@@ -263,7 +256,6 @@ body {
         background: #f8fafc;
     }
 
-/* ================= STATUS BADGES ================= */
 
 .status {
     padding: 8px 14px;
@@ -288,7 +280,7 @@ body {
     color: #dc2626;
 }
 
-/* ================= BUTTONS ================= */
+
 
 .admin-btn {
     border: none;
@@ -329,7 +321,7 @@ body {
         background: #d97706;
     }
 
-/* ================= FORM ================= */
+
 
 .admin-form-card {
     background: white;
@@ -365,7 +357,6 @@ body {
         background: white;
     }
 
-/* ================= SEARCH ================= */
 
 .search-box {
     position: relative;
@@ -387,8 +378,6 @@ body {
         left: 20px;
         top: 22px;
         color: #94a3b8;
-    }
-/* ================= EXTRA ================= */
 
 .sidebar-brand {
     text-align: center;
@@ -507,7 +496,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* ================= ANIMATION ================= */
+
 
 .fade-up {
     animation: fadeUp .7s ease;
@@ -526,7 +515,6 @@ body {
     }
 }
 
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px) {
 
@@ -589,7 +577,6 @@ body {
         font-size: 38px;
     }
 }
-/* ================= GLOBAL FIX ================= */
 
 html,
 body {

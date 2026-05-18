@@ -20,57 +20,50 @@ namespace SkillSphere.Controllers
         // ================= INDEX =================
 
         public async Task<IActionResult> Index(
-    string search,
-    string category,
-    string type,
-    int page = 1)
+            string search,
+            string category,
+            string type,
+            int page = 1)
         {
-            int pageSize = 6;
+            int pageSize = 9;
 
-            var skills =
-                _context.SkillPosts.AsQueryable();
+            var skills = _context.SkillPosts
+                .AsNoTracking()
+                .AsQueryable();
 
-            // SEARCH
-
+            // ================= SEARCH =================
             if (!string.IsNullOrEmpty(search))
             {
                 skills = skills.Where(x =>
-                    x.Title.Contains(search));
+                    x.Title.Contains(search) ||
+                    x.Description.Contains(search));
             }
 
-            // CATEGORY
-
+            // ================= CATEGORY =================
             if (!string.IsNullOrEmpty(category))
             {
-                skills = skills.Where(x =>
-                    x.Category == category);
+                skills = skills.Where(x => x.Category == category);
             }
 
-            // TYPE
-
+            // ================= TYPE =================
             if (!string.IsNullOrEmpty(type))
             {
-                skills = skills.Where(x =>
-                    x.Type == type);
+                skills = skills.Where(x => x.Type == type);
             }
 
-            // PAGINATION
+            // ================= COUNT =================
+            var totalSkills = await skills.CountAsync();
 
-            var totalSkills =
-                await skills.CountAsync();
-
+            // ================= PAGINATION =================
             var result = await skills
-                .OrderByDescending(x => x.Id)
+                .OrderByDescending(x => x.CreatedAt)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
+            // ================= VIEWBAG =================
             ViewBag.CurrentPage = page;
-
-            ViewBag.TotalPages =
-                (int)Math.Ceiling(
-                    totalSkills / (double)pageSize);
-
+            ViewBag.TotalPages = (int)Math.Ceiling(totalSkills / (double)pageSize);
             ViewBag.CurrentSearch = search;
             ViewBag.CurrentCategory = category;
             ViewBag.CurrentType = type;
@@ -85,7 +78,9 @@ namespace SkillSphere.Controllers
             if (id == null)
                 return NotFound();
 
-            var skill = await _context.SkillPosts.FindAsync(id);
+            var skill = await _context.SkillPosts
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (skill == null)
                 return NotFound();
@@ -109,13 +104,10 @@ namespace SkillSphere.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            model.UserId =
-                User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
-
+            model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "";
             model.CreatedAt = DateTime.Now;
 
-            _context.Add(model);
-
+            _context.SkillPosts.Add(model);
             await _context.SaveChangesAsync();
 
             TempData["success"] = "Skill created successfully";
@@ -158,6 +150,8 @@ namespace SkillSphere.Controllers
             skill.Title = model.Title;
             skill.Description = model.Description;
             skill.Offer = model.Offer;
+            skill.Category = model.Category;
+            skill.Type = model.Type;
 
             await _context.SaveChangesAsync();
 
@@ -174,7 +168,9 @@ namespace SkillSphere.Controllers
             if (id == null)
                 return NotFound();
 
-            var skill = await _context.SkillPosts.FindAsync(id);
+            var skill = await _context.SkillPosts
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (skill == null)
                 return NotFound();
@@ -204,6 +200,7 @@ namespace SkillSphere.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteAjax(int id)
         {
             var skill = await _context.SkillPosts.FindAsync(id);
@@ -212,7 +209,6 @@ namespace SkillSphere.Controllers
                 return Json(new { success = false });
 
             _context.SkillPosts.Remove(skill);
-
             await _context.SaveChangesAsync();
 
             return Json(new { success = true });

@@ -6,6 +6,19 @@
 }
 
 <div class="table-card">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error"]
+        </div>
+    }
     <div class="table-header">
         <h3><i class="fa-solid fa-users me-2"></i>All Users</h3>
         <span class="users-count">@Model.Count() Users</span>
@@ -15,6 +28,7 @@
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="Search by email..." />
     </div>
+
 
     <table class="admin-table" id="usersTable">
         <thead>

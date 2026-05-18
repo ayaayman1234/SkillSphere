@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkillSphere.Data;
 
@@ -11,9 +12,11 @@ using SkillSphere.Data;
 namespace SkillSphere.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260517222341_FixRatingsAndFavorites")]
+    partial class FixRatingsAndFavorites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,6 +247,28 @@ namespace SkillSphere.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("SkillSphere.Models.FavoriteSkill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("SkillPostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillPostId");
+
+                    b.ToTable("FavoriteSkills");
+                });
+
             modelBuilder.Entity("SkillSphere.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -297,6 +322,40 @@ namespace SkillSphere.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("SkillSphere.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RatedUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RaterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RatedUserId");
+
+                    b.HasIndex("RaterId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("SkillSphere.Models.SkillPost", b =>
@@ -357,7 +416,7 @@ namespace SkillSphere.Data.Migrations
 
                     b.Property<string>("FromUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -365,13 +424,9 @@ namespace SkillSphere.Data.Migrations
 
                     b.Property<string>("ToUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FromUserId");
-
-                    b.HasIndex("ToUserId");
 
                     b.ToTable("SwapRequests");
                 });
@@ -427,23 +482,34 @@ namespace SkillSphere.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkillSphere.Models.SwapRequest", b =>
+            modelBuilder.Entity("SkillSphere.Models.FavoriteSkill", b =>
                 {
-                    b.HasOne("SkillSphere.Models.ApplicationUser", "FromUser")
+                    b.HasOne("SkillSphere.Models.SkillPost", "SkillPost")
                         .WithMany()
-                        .HasForeignKey("FromUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("SkillPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SkillSphere.Models.ApplicationUser", "ToUser")
+                    b.Navigation("SkillPost");
+                });
+
+            modelBuilder.Entity("SkillSphere.Models.Rating", b =>
+                {
+                    b.HasOne("SkillSphere.Models.ApplicationUser", "RatedUser")
                         .WithMany()
-                        .HasForeignKey("ToUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("RatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("FromUser");
+                    b.HasOne("SkillSphere.Models.ApplicationUser", "Rater")
+                        .WithMany()
+                        .HasForeignKey("RaterId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("ToUser");
+                    b.Navigation("RatedUser");
+
+                    b.Navigation("Rater");
                 });
 #pragma warning restore 612, 618
         }

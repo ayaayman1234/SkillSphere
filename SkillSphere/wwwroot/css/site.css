@@ -1,8 +1,8 @@
-/* ================= GOOGLE FONT ================= */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ================= RESET ================= */
+
 
 * {
     margin: 0;
@@ -21,8 +21,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= GLOBAL ================= */
-
 .container-custom {
     width: 90%;
     max-width: 1400px;
@@ -37,7 +35,6 @@ img {
     max-width: 100%;
 }
 
-/* ================= NAVBAR ================= */
 
 .navbar-custom {
     width: 100%;
@@ -77,7 +74,7 @@ img {
             color: #60a5fa;
         }
 
-/* ================= HERO ================= */
+
 
 .hero-section {
     min-height: 100vh;
@@ -153,7 +150,7 @@ img {
     flex-wrap: wrap;
 }
 
-/* ================= BUTTONS ================= */
+
 
 .btn-main {
     background: linear-gradient(to right,#2563eb,#3b82f6);
@@ -185,7 +182,7 @@ img {
         color: #0f172a;
     }
 
-/* ================= HERO IMAGE ================= */
+
 
 .hero-image {
     flex: 1;
@@ -215,7 +212,7 @@ img {
     }
 }
 
-/* ================= FEATURES ================= */
+
 
 .features-section {
     padding: 120px 70px;
@@ -298,7 +295,7 @@ img {
     line-height: 1.8;
 }
 
-/* ================= TESTIMONIALS ================= */
+
 
 .testimonials {
     padding: 120px 70px;
@@ -346,7 +343,6 @@ img {
         font-size: 16px;
     }
 
-/* ================= SKILLS PAGE ================= */
 
 .skills-page {
     background: #f8fafc;
@@ -381,7 +377,7 @@ img {
     font-size: 18px;
 }
 
-/* ================= SEARCH ================= */
+
 
 .search-wrapper {
     position: relative;
@@ -409,7 +405,7 @@ img {
     z-index: 10;
 }
 
-/* ================= CREATE BUTTON ================= */
+
 
 .create-btn {
     background: linear-gradient(to right,#2563eb,#3b82f6);
@@ -426,7 +422,7 @@ img {
         color: white;
     }
 
-/* ================= SKILL CARD ================= */
+
 
 .skill-card-new {
     background: white;
@@ -483,7 +479,6 @@ img {
     min-height: 85px;
 }
 
-/* ================= BADGES ================= */
 
 .category-badge,
 .type-badge,
@@ -511,7 +506,7 @@ img {
     color: white;
 }
 
-/* ================= OFFER ================= */
+
 
 .offer-section {
     background: #f8fafc;
@@ -533,26 +528,32 @@ img {
     font-weight: 600;
 }
 
-/* ================= BUTTONS ================= */
+
 
 .skill-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 28px;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .skill-btn {
     flex: 1;
-    text-align: center;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
+    padding: 10px 12px;
+    border-radius: 12px;
     font-weight: 600;
-    transition: .3s;
+    text-decoration: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.25s ease;
+    font-size: 14px;
 }
 
-.details-btn {
-    background: #2563eb;
+
+.create-btn {
+    background: #3b82f6;
     color: white;
 }
 
@@ -565,13 +566,21 @@ img {
     background: #ef4444;
     color: white;
 }
+.btn-details {
+    background: #3b82f6;
+    color: white;
+}
+
+    .btn-details:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+    }
 
 .skill-btn:hover {
     transform: translateY(-3px);
     color: white;
 }
 
-/* ================= PROFILE ================= */
 
 .profile-page {
     padding: 140px 0;
@@ -626,7 +635,6 @@ img {
             color: white;
         }
 
-/* ================= PAGINATION ================= */
 
 .pagination-wrapper {
     margin-top: 70px;
@@ -656,7 +664,6 @@ img {
         color: white;
     }
 
-/* ================= FOOTER ================= */
 
 .footer {
     background: #020617;
@@ -666,7 +673,7 @@ img {
     font-size: 15px;
 }
 
-/* ================= ANIMATION ================= */
+
 
 .fade-up {
     animation: fadeUp .7s ease;
@@ -685,7 +692,7 @@ img {
     }
 }
 
-/* ================= ABOUT PAGE ================= */
+
 
 .about-page {
     background: #f8fafc;
@@ -764,7 +771,7 @@ img {
     margin: 0;
 }
 
-/* ================= ABOUT STATS ================= */
+
 
 .about-stats {
     display: grid;
@@ -804,7 +811,7 @@ img {
         font-weight: 500;
     }
 
-/* ================= CTA SECTION ================= */
+
 
 .cta-section {
     padding: 100px 70px;
@@ -832,7 +839,7 @@ img {
     flex-wrap: wrap;
 }
 
-/* ================= RATING SYSTEM ================= */
+
 
 .rating-summary {
     margin: 12px 0 20px;
@@ -943,7 +950,7 @@ img {
     font-size: 0.82rem;
 }
 
-/* ================= RESPONSIVE ================= */
+
 
 @media(max-width: 1200px) {
 
@@ -1046,8 +1053,6 @@ img {
         align-items: center;
     }
 }
-/* ================= EDIT PROFILE ================= */
-
 .edit-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1109,7 +1114,7 @@ img {
         grid-template-columns: 1fr;
     }
 }
-/* ================= COMMON PAGES ================= */
+
 
 .page-header {
     margin-bottom: 40px;
@@ -1144,7 +1149,7 @@ img {
         font-weight: 700;
     }
 
-/* ================= MESSAGES ================= */
+
 
 .messages-page,
 .notifications-page,
@@ -1232,7 +1237,7 @@ img {
     color: #94a3b8;
     font-size: 14px;
 }
-/* ================= MESSAGES ================= */
+
 
 .messages-list {
     display: flex;
@@ -1268,7 +1273,7 @@ img {
     color: #94a3b8;
     font-size: 0.82rem;
 }
-/* ================= BOOTSTRAP NAVBAR FIX ================= */
+
 
 .custom-navbar {
     background: rgba(15, 23, 42, 0.95) !important;
@@ -1306,7 +1311,7 @@ img {
         font-weight: 600;
     }
 
-/* ================= SKILLS SEARCH FIX ================= */
+
 
 .search-btn {
     height: 65px;
@@ -1322,7 +1327,6 @@ img {
     padding-left: 20px !important;
 }
 
-/* ================= ADMIN USERS TABLE ================= */
 
 .admin-users-table {
     background: white;
@@ -1357,20 +1361,16 @@ img {
         .admin-users-table .table tr:hover td {
             background: #f8faff;
         }
-/* ================= AUTH NAVBAR FIX ================= */
-
-/* ================= GLOBAL NAVBAR FIX ================= */
-
 body {
     padding-top: 90px;
 }
 
-    /* لو صفحة auth متبقاش فيها مسافة فوق */
+   
     body:has(.auth-container) {
         padding-top: 0 !important;
     }
 
-/* ================= NAVBAR ================= */
+
 
 .custom-navbar,
 .navbar-custom {
@@ -1384,7 +1384,6 @@ body {
     border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-    /* ================= NAVBAR LINKS ================= */
 
     .custom-navbar .navbar-brand.logo-text {
         color: #60a5fa !important;
@@ -1404,13 +1403,12 @@ body {
             color: #60a5fa !important;
         }
 
-/* ================= AUTH PAGES ================= */
+
 
 body:has(.auth-container) .custom-navbar {
     display: none !important;
 }
 
-/* ================= REGISTER / LOGIN FIX ================= */
 
 .auth-container {
     min-height: 100vh;
@@ -1418,7 +1416,7 @@ body:has(.auth-container) .custom-navbar {
     padding-top: 0 !important;
 }
 
-/* ================= PAGE TOP SPACING ================= */
+
 
 .skills-page,
 .profile-page,
@@ -1429,7 +1427,6 @@ body:has(.auth-container) .custom-navbar {
     padding-top: 120px !important;
 }
 
-/* ================= MESSAGE PAGE FIX ================= */
 
 .messages-list {
     display: flex;
@@ -1465,7 +1462,7 @@ body:has(.auth-container) .custom-navbar {
     font-size: 13px;
 }
 
-/* ================= MOBILE ================= */
+
 
 @media(max-width:768px) {
 
@@ -1486,3 +1483,164 @@ body:has(.auth-container) .custom-navbar {
         padding-top: 140px !important;
     }
 }
+
+
+.create-card {
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.06);
+}
+
+.custom-input,
+.custom-select,
+.custom-textarea {
+    border-radius: 14px;
+    border: 1.5px solid #e2e8f0;
+    padding: 12px 16px;
+    transition: .3s;
+    background: #f8fafc;
+}
+
+    .custom-input:focus,
+    .custom-select:focus,
+    .custom-textarea:focus {
+        outline: none;
+        border-color: #2563eb;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(37,99,235,.08);
+    }
+
+.save-btn {
+    background: linear-gradient(to right,#2563eb,#3b82f6);
+    color: white;
+    padding: 14px 30px;
+    border-radius: 14px;
+    font-weight: 600;
+    border: none;
+    transition: .3s;
+}
+
+    .save-btn:hover {
+        transform: translateY(-3px);
+    }
+
+.cancel-btn {
+    background: #e2e8f0;
+    color: #0f172a;
+    padding: 14px 30px;
+    border-radius: 14px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+    .cancel-btn:hover {
+        background: #cbd5e1;
+    }
+
+
+.contact-card {
+    background: white;
+    border-radius: 28px;
+    padding: 50px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.06);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 10px 30px rgba(37,99,235,.3);
+}
+
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    text-align: left;
+}
+
+.profile-info-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+    .profile-info-item i {
+        font-size: 1.3rem;
+        color: #2563eb;
+        width: 40px;
+        height: 40px;
+        background: #dbeafe;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-info-item span {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        font-weight: 600;
+        display: block;
+    }
+
+    .profile-info-item p {
+        margin: 0;
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 0.95rem;
+    }
+
+@media (max-width: 768px) {
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.request-status {
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-accepted {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #dc2626;
+}
+.btn-request {
+    background: #10b981;
+    color: white;
+    width: 100%;
+}
+
+    .btn-request:hover {
+        background: #059669;
+        transform: translateY(-2px);
+    }

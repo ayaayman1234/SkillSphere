@@ -26,37 +26,24 @@ namespace SkillSphere.Controllers
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userId = id ?? currentUserId;
-            var user = await _context.Users.FindAsync(userId);
 
+            var user = await _context.Users.FindAsync(userId);
             if (user == null) return NotFound();
 
-            ViewBag.UserSkills = await _context.SkillPosts
+            var skills = await _context.SkillPosts
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
 
-            var ratings = await _context.Ratings
-                .Where(r => r.RatedUserId == userId)
-                .Include(r => r.Rater)
-                .ToListAsync();
-
-            ViewBag.Ratings = ratings;
-            ViewBag.AverageRating = ratings.Any()
-                ? Math.Round(ratings.Average(r => r.Score), 1)
-                : 0.0;
-            ViewBag.RatingCount = ratings.Count;
-            ViewBag.AlreadyRated = ratings.Any(r => r.RaterId == currentUserId);
-            ViewBag.IsOwner = currentUserId == userId;
+           
             ViewBag.ProfileUserId = userId;
+            ViewBag.IsOwner = currentUserId == userId;
 
             return View(user);
         }
 
-        // ================= EDIT =================
-
         public async Task<IActionResult> Edit()
         {
             var user = await _userManager.GetUserAsync(User);
-
             if (user == null) return NotFound();
 
             return View(user);
@@ -64,41 +51,28 @@ namespace SkillSphere.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(
-            string? fullName,
-            string? bio,
-            string? learningSkill,
-            string? teachingSkill,
-            string? availableHours,
-            string? contactNumber,
-            string? facebookLink,
-            string? linkedInLink)
+        public async Task<IActionResult> Edit(ApplicationUser model)
         {
             var user = await _userManager.GetUserAsync(User);
-
             if (user == null) return NotFound();
 
-            user.FullName = fullName;
-            user.Bio = bio;
-            user.LearningSkill = learningSkill;
-            user.TeachingSkill = teachingSkill;
-            user.AvailableHours = availableHours;
-            user.ContactNumber = contactNumber;
-            user.FacebookLink = facebookLink;
-            user.LinkedInLink = linkedInLink;
+            user.FullName = model.FullName;
+            user.Bio = model.Bio;
+            user.LearningSkill = model.LearningSkill;
+            user.TeachingSkill = model.TeachingSkill;
+            user.AvailableHours = model.AvailableHours;
+            user.ContactNumber = model.ContactNumber;
+            user.FacebookLink = model.FacebookLink;
+            user.LinkedInLink = model.LinkedInLink;
 
             var result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
-            {
-                TempData["Success"] = "Profile updated successfully ✔";
-                return RedirectToAction("Index");
-            }
+                TempData["Toast"] = "Profile updated successfully ✔";
+            else
+                TempData["Toast"] = "Update failed ❌";
 
-            foreach (var error in result.Errors)
-                ModelState.AddModelError("", error.Description);
-
-            return View(user);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
