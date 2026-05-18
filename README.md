@@ -23,7 +23,9 @@ SkillSphere is an ASP.NET Core MVC web application that allows users to share sk
 -Razor Views
 
  ---
- ## 📂 Project Structure
+ ## 📂 ## 📂 Project Structure
+
+```
 Controllers/
 │   AccountController
 │   AdminController
@@ -60,3 +62,4 @@ wwwroot/
 │   css/
 │   js/
 │   images/
+```
