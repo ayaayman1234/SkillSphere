@@ -161,44 +161,37 @@
                             <div class="skill-actions">
                                 @if (isAdmin)
                                 {
-                                    <a asp-action="Create" class="skill-btn create-btn flex-fill text-center">
-                                        <i class="fa-solid fa-plus me-1"></i> Create
+                                    <a asp-action="Create" class="skill-btn create-btn">
+                                        <i class="fa-solid"></i> Create
                                     </a>
-
                                     <a asp-action="Edit"
                                            asp-route-id="@item.Id"
-                                           class="skill-btn edit-btn flex-fill text-center">
+                                           class="skill-btn edit-btn">
                                         Edit
                                     </a>
-
-                                    <button class="skill-btn delete-btn deleteBtn flex-fill">
+                                    <button class="skill-btn delete-btn deleteBtn"
+                                            data-id="@item.Id">
                                         Delete
                                     </button>
                                 }
-                                <div class="skill-actions">
-    
+                                else
+                                {
                                     <a asp-action="Details"
                                            asp-route-id="@item.Id"
-                                           class="skill-btn btn-details">
-                                        <i class="fa-solid fa-circle-info"></i>
-                                        Details
+                                           class="skill-btn details-btn">
+                                        <i class="fa-solid"></i> Details
                                     </a>
-
                                     <form asp-controller="SwapRequests"
                                           asp-action="Send"
                                           method="post"
-                                          class="w-100">
-
+                                          style="flex:1;">
+                                        @Html.AntiForgeryToken()
                                         <input type="hidden" name="toUserId" value="@item.UserId" />
-
-                                        <button type="submit" class="skill-btn btn-request">
-                                            <i class="fa-solid fa-paper-plane"></i>
-                                            Request
+                                        <button type="submit" class="skill-btn btn-request w-100">
+                                            <i class="fa-solid"></i> Request
                                         </button>
-
                                     </form>
-
-                                </div>
+                                }
                             </div>
 
                         </div>
@@ -226,7 +219,6 @@
 
 @section Scripts {
     <script>
-        // ===== LIVE SEARCH =====
         document.getElementById('liveSearch').addEventListener('input', function () {
             const val = this.value.toLowerCase();
             document.querySelectorAll('.skill-item').forEach(card => {
@@ -236,7 +228,6 @@
             });
         });
 
-        // ===== DELETE AJAX =====
         const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
         document.querySelectorAll(".deleteBtn").forEach(btn => {

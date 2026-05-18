@@ -407,22 +407,6 @@ img {
 
 
 
-.create-btn {
-    background: linear-gradient(to right,#2563eb,#3b82f6);
-    color: white;
-    padding: 16px 32px;
-    border-radius: 16px;
-    font-weight: 600;
-    transition: .3s;
-    display: inline-block;
-}
-
-    .create-btn:hover {
-        transform: translateY(-4px);
-        color: white;
-    }
-
-
 
 .skill-card-new {
     background: white;
@@ -552,29 +536,41 @@ img {
 }
 
 
-.create-btn {
-    background: #3b82f6;
-    color: white;
-}
-
-.edit-btn {
-    background: #f59e0b;
-    color: white;
-}
-
-.delete-btn {
-    background: #ef4444;
-    color: white;
-}
-.btn-details {
-    background: #3b82f6;
-    color: white;
-}
-
-    .btn-details:hover {
-        background: #2563eb;
-        transform: translateY(-2px);
+    .skill-btn.details-btn,
+    .skill-btn.create-btn {
+        background: linear-gradient(to right, #2563eb, #3b82f6) !important;
+        color: white !important;
+        box-shadow: 0 8px 20px rgba(37,99,235,.25);
     }
+
+        .skill-btn.details-btn:hover,
+        .skill-btn.create-btn:hover {
+            transform: translateY(-3px);
+            color: white !important;
+            box-shadow: 0 12px 28px rgba(37,99,235,.35);
+        }
+
+    .skill-btn.edit-btn {
+        background: #f59e0b !important;
+        color: white !important;
+    }
+
+        .skill-btn.edit-btn:hover {
+            background: #d97706 !important;
+            transform: translateY(-3px);
+            color: white !important;
+        }
+
+    .skill-btn.delete-btn {
+        background: #ef4444 !important;
+        color: white !important;
+    }
+
+        .skill-btn.delete-btn:hover {
+            background: #dc2626 !important;
+            transform: translateY(-3px);
+            color: white !important;
+        }
 
 .skill-btn:hover {
     transform: translateY(-3px);

@@ -32,10 +32,37 @@
                                 @item.Status
                             </span>
                         </div>
+
                         <div class="message-content">
-                            <p><b>From:</b> @item.FromUserId</p>
-                            <p><b>To:</b> @item.ToUserId</p>
+                            <p><b>From:</b> @(item.FromUser?.FullName ?? item.FromUserId)</p>
+                            <p><b>To:</b> @(item.ToUser?.FullName ?? item.ToUserId)</p>
                         </div>
+
+                        @if (User.IsInRole("Admin") && item.Status == "Pending")
+                        {
+                            <div class="skill-actions mt-3">
+                                <form asp-controller="SwapRequests"
+                                      asp-action="Accept"
+                                      method="post"
+                                      style="flex:1;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="skill-btn details-btn w-100">
+                                        <i class="fa-solid fa-check me-1"></i> Accept
+                                    </button>
+                                </form>
+                                <form asp-controller="SwapRequests"
+                                      asp-action="Reject"
+                                      method="post"
+                                      style="flex:1;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="skill-btn delete-btn w-100">
+                                        <i class="fa-solid fa-x me-1"></i> Reject
+                                    </button>
+                                </form>
+                            </div>
+                        }
                     </div>
                 }
             </div>

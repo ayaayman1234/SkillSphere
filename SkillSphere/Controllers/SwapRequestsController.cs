@@ -21,7 +21,6 @@ namespace SkillSphere.Controllers
             _userManager = userManager;
         }
 
-        
         public IActionResult Index()
         {
             var requests = _context.SwapRequests
@@ -29,9 +28,8 @@ namespace SkillSphere.Controllers
                 .Include(r => r.ToUser)
                 .ToList();
 
-            return View(requests); 
+            return View(requests);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -39,17 +37,66 @@ namespace SkillSphere.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user == null)
-                return Unauthorized();
-
-            if (user.Id == toUserId)
-                return BadRequest("You cannot send request to yourself");
+            if (user == null) return Unauthorized();
+            if (user.Id == toUserId) return BadRequest("You cannot send request to yourself");
 
             _context.SwapRequests.Add(new SwapRequest
             {
                 FromUserId = user.Id,
                 ToUserId = toUserId,
                 Status = "Pending"
+            });
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ================= ACCEPT =================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Accept(int id)
+        {
+            var request = await _context.SwapRequests.FindAsync(id);
+
+            if (request == null) return NotFound();
+
+            request.Status = "Accepted";
+
+            _context.Notifications.Add(new Notification
+            {
+                UserId = request.FromUserId,
+                Text = "Your swap request has been accepted ✔",
+                IsRead = false,
+                CreatedAt = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ================= REJECT =================
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var request = await _context.SwapRequests.FindAsync(id);
+
+            if (request == null) return NotFound();
+
+            request.Status = "Rejected";
+
+            _context.Notifications.Add(new Notification
+            {
+                UserId = request.FromUserId,
+                Text = "Your swap request has been rejected ✖",
+                IsRead = false,
+                CreatedAt = DateTime.Now
             });
 
             await _context.SaveChangesAsync();
