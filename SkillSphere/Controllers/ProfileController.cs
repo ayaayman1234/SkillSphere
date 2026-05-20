@@ -30,11 +30,11 @@ namespace SkillSphere.Controllers
             var user = await _context.Users.FindAsync(userId);
             if (user == null) return NotFound();
 
-            var skills = await _context.SkillPosts
+            // ✅ اتضاف
+            ViewBag.UserSkills = await _context.SkillPosts
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
 
-           
             ViewBag.ProfileUserId = userId;
             ViewBag.IsOwner = currentUserId == userId;
 
@@ -45,25 +45,32 @@ namespace SkillSphere.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return NotFound();
-
             return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ApplicationUser model)
+        public async Task<IActionResult> Edit(
+            string? fullName,
+            string? bio,
+            string? learningSkill,
+            string? teachingSkill,
+            string? availableHours,
+            string? contactNumber,
+            string? facebookLink,
+            string? linkedInLink)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return NotFound();
 
-            user.FullName = model.FullName;
-            user.Bio = model.Bio;
-            user.LearningSkill = model.LearningSkill;
-            user.TeachingSkill = model.TeachingSkill;
-            user.AvailableHours = model.AvailableHours;
-            user.ContactNumber = model.ContactNumber;
-            user.FacebookLink = model.FacebookLink;
-            user.LinkedInLink = model.LinkedInLink;
+            user.FullName = fullName;
+            user.Bio = bio;
+            user.LearningSkill = learningSkill;
+            user.TeachingSkill = teachingSkill;
+            user.AvailableHours = availableHours;
+            user.ContactNumber = contactNumber;
+            user.FacebookLink = facebookLink;
+            user.LinkedInLink = linkedInLink;
 
             var result = await _userManager.UpdateAsync(user);
 

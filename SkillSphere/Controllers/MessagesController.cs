@@ -22,7 +22,11 @@ namespace SkillSphere.Controllers
 
         public IActionResult Index()
         {
+            // ✅ بيجيب بس رسائل اليوزر الحالي
+            var userId = _userManager.GetUserId(User);
+
             var messages = _context.Messages
+                .Where(x => x.SenderId == userId || x.ReceiverId == userId)
                 .OrderByDescending(x => x.SentAt)
                 .ToList();
 

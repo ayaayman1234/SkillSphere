@@ -3,7 +3,6 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Create Skill";
-
 }
 
 <div class="container py-5">
@@ -11,147 +10,90 @@
     <div class="card shadow-lg border-0 rounded-4 p-4 create-card">
 
         <div class="mb-4">
-
-            <h2 class="fw-bold">
-                Create New Skill
-            </h2>
-
-            <p class="text-muted">
-                Share your skills with the community 🚀
-            </p>
-
+            <h2 class="fw-bold">Create New Skill</h2>
+            <p class="text-muted">Share your skills with the community 🚀</p>
         </div>
 
-        <form asp-action="Create">
+        <div id="validationAlert"
+             class="alert alert-danger d-none"
+             role="alert">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
+            <span id="validationMessage"></span>
+        </div>
 
-            <!-- TITLE -->
+        <form asp-action="Create" id="createSkillForm" novalidate>
+
             <div class="mb-4">
-
-                <label asp-for="Title" class="form-label fw-semibold">
-                    Skill Title
-                </label>
-
+                <label asp-for="Title" class="form-label fw-semibold">Skill Title</label>
                 <input asp-for="Title"
+                       id="Title"
                        class="form-control custom-input"
                        placeholder="Enter skill title" />
-
-                <span asp-validation-for="Title"
-                      class="text-danger">
-                </span>
-
+                <span asp-validation-for="Title" class="text-danger"></span>
+                <div class="invalid-feedback">Title is required (max 50 characters).</div>
             </div>
 
-            <!-- OFFER -->
             <div class="mb-4">
-
-                <label asp-for="Offer"
-                       class="form-label fw-semibold">
-
-                    What Can You Offer?
-
-                </label>
-
+                <label asp-for="Offer" class="form-label fw-semibold">What Can You Offer?</label>
                 <input asp-for="Offer"
+                       id="Offer"
                        class="form-control custom-input"
                        placeholder="Example: React, Photoshop..." />
-
-                <span asp-validation-for="Offer"
-                      class="text-danger">
-                </span>
-
+                <span asp-validation-for="Offer" class="text-danger"></span>
+                <div class="invalid-feedback">Offer is required.</div>
             </div>
 
-            <!-- CATEGORY -->
             <div class="mb-4">
-
-                <label asp-for="Category"
-                       class="form-label fw-semibold">
-
-                    Category
-
-                </label>
-
+                <label asp-for="Category" class="form-label fw-semibold">Category</label>
                 <select asp-for="Category"
+                        id="Category"
                         class="form-select custom-select">
-
                     <option value="">Select Category</option>
                     <option value="Programming">Programming</option>
                     <option value="Design">Design</option>
                     <option value="Marketing">Marketing</option>
                     <option value="AI">AI</option>
                     <option value="Business">Business</option>
-
                 </select>
-
-                <span asp-validation-for="Category"
-                      class="text-danger">
-                </span>
-
+                <span asp-validation-for="Category" class="text-danger"></span>
+                <div class="invalid-feedback">Please select a category.</div>
             </div>
 
-            <!-- TYPE -->
             <div class="mb-4">
-
-                <label asp-for="Type"
-                       class="form-label fw-semibold">
-
-                    Type
-
-                </label>
-
+                <label asp-for="Type" class="form-label fw-semibold">Type</label>
                 <select asp-for="Type"
+                        id="Type"
                         class="form-select custom-select">
-
                     <option value="">Select Type</option>
                     <option value="Learning">Learning</option>
                     <option value="Teaching">Teaching</option>
-
                 </select>
-
-                <span asp-validation-for="Type"
-                      class="text-danger">
-                </span>
-
+                <span asp-validation-for="Type" class="text-danger"></span>
+                <div class="invalid-feedback">Please select a type.</div>
             </div>
 
-            <!-- DESCRIPTION -->
             <div class="mb-4">
-
-                <label asp-for="Description"
-                       class="form-label fw-semibold">
-
-                    Description
-
-                </label>
-
+                <label asp-for="Description" class="form-label fw-semibold">Description</label>
                 <textarea asp-for="Description"
+                          id="Description"
                           class="form-control custom-textarea"
                           rows="5"
                           placeholder="Describe your skill..."></textarea>
-
-                <span asp-validation-for="Description"
-                      class="text-danger">
-                </span>
-
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <div class="invalid-feedback">Description is required (max 300 characters).</div>
             </div>
 
-            <!-- BUTTONS -->
+            <div id="charCount"
+                 class="text-muted small mb-3"
+                 style="display:none;">
+                <span id="charNum">0</span>/300 characters
+            </div>
+
             <div class="d-flex gap-3">
-
-                <button type="submit"
-                        class="save-btn">
-
-                    Create Skill
-
+                <button type="submit" class="save-btn" id="submitBtn">
+                    <i class="fa-solid fa-plus me-2"></i>Create Skill
                 </button>
-
-                <a asp-action="Index"
-                       class="cancel-btn">
-
-                    Back
-
-                </a>
-
+                <a asp-action="Index" class="cancel-btn">Back</a>
             </div>
 
         </form>
@@ -164,4 +106,105 @@
 
     <partial name="_ValidationScriptsPartial" />
 
+    <script>
+        // ===== CLIENT-SIDE FORM VALIDATION =====
+
+        const form = document.getElementById('createSkillForm');
+        const alertBox = document.getElementById('validationAlert');
+        const alertMsg = document.getElementById('validationMessage');
+        const descTextarea = document.getElementById('Description');
+        const charCount = document.getElementById('charCount');
+        const charNum = document.getElementById('charNum');
+
+        // ===== Live Character Counter for Description =====
+        descTextarea.addEventListener('input', function () {
+            const len = this.value.length;
+            charCount.style.display = 'block';
+            charNum.textContent = len;
+
+            if (len > 300) {
+                charNum.style.color = '#ef4444';
+                this.classList.add('is-invalid');
+            } else {
+                charNum.style.color = '#10b981';
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        // ===== Live validation on input =====
+        document.querySelectorAll('.custom-input, .custom-select, .custom-textarea').forEach(field => {
+            field.addEventListener('input', function () {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                }
+            });
+
+            field.addEventListener('change', function () {
+                if (this.value.trim() !== '') {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                }
+            });
+        });
+
+        // ===== Submit Validation =====
+        form.addEventListener('submit', function (e) {
+
+            const title       = document.getElementById('Title').value.trim();
+            const offer       = document.getElementById('Offer').value.trim();
+            const category    = document.getElementById('Category').value;
+            const type        = document.getElementById('Type').value;
+            const description = document.getElementById('Description').value.trim();
+
+            let errors = [];
+
+            if (!title)
+                errors.push('Skill Title is required.');
+
+            if (title.length > 50)
+                errors.push('Skill Title must be under 50 characters.');
+
+            if (!offer)
+                errors.push('Offer field is required.');
+
+            if (!category)
+                errors.push('Please select a Category.');
+
+            if (!type)
+                errors.push('Please select a Type.');
+
+            if (!description)
+                errors.push('Description is required.');
+
+            if (description.length > 300)
+                errors.push('Description must be under 300 characters.');
+
+            if (errors.length > 0) {
+                e.preventDefault();
+
+                alertMsg.innerHTML = errors.map(err =>
+                    `<div>• ${err}</div>`
+                ).join('');
+
+                alertBox.classList.remove('d-none');
+
+                // Scroll to top of form
+                alertBox.scrollIntoView({ behavior: 'smooth' });
+
+                // Highlight invalid fields
+                if (!title)       document.getElementById('Title').classList.add('is-invalid');
+                if (!offer)       document.getElementById('Offer').classList.add('is-invalid');
+                if (!category)    document.getElementById('Category').classList.add('is-invalid');
+                if (!type)        document.getElementById('Type').classList.add('is-invalid');
+                if (!description) document.getElementById('Description').classList.add('is-invalid');
+
+            } else {
+                alertBox.classList.add('d-none');
+            }
+        });
+    </script>
 }

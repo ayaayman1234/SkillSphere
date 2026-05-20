@@ -187,26 +187,24 @@
                         {
                             <li class="nav-item">
 
-                                <a class="btn btn-outline-primary"
+                                <a class="nav-link px-3 py-2 rounded-3 border border-primary text-primary fw-semibold"
                                        asp-area="Identity"
-                                       asp-page="/Account/Login">
-
+                                       asp-page="/Account/Login"
+                                       style="border-color: #2563eb !important; color: #2563eb !important; transition: .3s;"
+                                       onmouseover="this.style.background='#2563eb'; this.style.color='white';"
+                                       onmouseout="this.style.background='transparent'; this.style.color='#2563eb';">
                                     Login
-
                                 </a>
+
 
                             </li>
 
                             <li class="nav-item">
-
-                                <a class="btn btn-primary"
-                                       asp-area="Identity"
-                                       asp-page="/Account/Register">
-
-                                    Register
-
+                                <a class="nav-link"
+                                       asp-controller="SwapRequests"
+                                       asp-action="Index">
+                                    Requests
                                 </a>
-
                             </li>
                         }
 
